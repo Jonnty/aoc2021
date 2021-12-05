@@ -5,18 +5,18 @@ export function day1(input: string): Parts {
 
     function slidingWindow(size: number, ns: number[]): number[][] {
         return ns.map((n, i) => {
-          if (i < size - 1) return [];
-          return ns.slice(i - (size - 1), i + 1);
+            if (i < size - 1) return [];
+            return ns.slice(i - (size - 1), i + 1);
         }).filter(window => window.length > 0);
-      }
-    
-      function increasing(ns: number[]): boolean {
+    }
+
+    function increasing(ns: number[]): boolean {
         return slidingWindow(2, ns).map(([a, b]) => b > a).reduce((a, b) => a && b);
-      }
-    
-      function countIncreasingWindows(ns: number[], window: number) {
+    }
+
+    function countIncreasingWindows(ns: number[], window: number) {
         return slidingWindow(window, ns).map(ns => increasing(ns) ? 1 : 0 as number).reduce((a, b) => a + b).toString();
-      }
+    }
 
     function part1(): string {
         return countIncreasingWindows(ns, 2).toString();
