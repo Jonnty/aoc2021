@@ -2,7 +2,7 @@
 
 Typescript this year. The setup of the silly visual bits took far longer than they should. 
 
-View all the running code <a href="https://jonnty.github.io/" target="_blank">here</a>.
+View all the running code <a href="https://jonnty.github.io/aoc2021/" target="_blank">here</a>.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Use `npm start` to run it. 
 
