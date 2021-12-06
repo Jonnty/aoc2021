@@ -1,6 +1,6 @@
 ## Advent of Code 2021
 
-Typescript this year. The setup of the silly visual bits took far longer than they should. his project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Use `npm start` to run it. 
+Typescript this year. The setup of the silly visual bits took far longer than they should. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Use `npm start` to run it. 
 
 ## Learn More
 
