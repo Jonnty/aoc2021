@@ -1,3 +1,4 @@
+import { removeTypeDuplicates } from '@babel/types';
 import raw from 'raw.macro';
 
 export interface Parts {
@@ -33,4 +34,12 @@ export async function importDays(): Promise<DayMap> {
         }
     }
     return days;
+}
+
+
+export function without<T>(s: Set<T>, e: T): Set<T> {
+    if (!s.has(e)) return s;
+    const newSet = new Set(s);
+    newSet.delete(e);
+    return newSet;
 }

@@ -6,7 +6,7 @@ function toBitField(s: string) {
 }
 
 function add(tally: number[], bf: number[], i: number) {
-    if (i == 0) {
+    if (i === 0) {
         //tally is first bit, not running total
         return tally.map((t, i) => bf[i] ? 1 : -1);
     }
@@ -42,7 +42,7 @@ function rating(bitfields: number[][], winningBits: (bfs: number[][]) => number[
     for (let i = 0; i < bitfields[0].length; i++) {
         winners = winners.filter(bf => filterBitfield(bf, winningBits(winners), i));
         console.log(winners, i);
-        if (winners.length == 1) {
+        if (winners.length === 1) {
             return winners[0];
         }
     }
