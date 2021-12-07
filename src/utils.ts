@@ -11,11 +11,11 @@ export type DayMap = Map<number, () => Parts>;
 
 
 export function numberList(s: string) {
-    return s.split("\n").map(i => parseInt(i));
+    return stringList(s).map(i => parseInt(i));
 }
 
 export function stringList(s: string) {
-    return s.split("\n");
+    return s.split("\n").map(s => s.trim());
 }
 
 
@@ -24,10 +24,10 @@ export async function importDays(): Promise<DayMap> {
     for (let i = 1; i <= 25; i++) {
         try {
             const day = (await import(`./days/day${i}`))[`day${i}`] as DayFn;
-            console.log(`day ${i} code succesfully imported`, day);
+            console.log(`day ${i} code succesfully imported`);
             const loc = `day${i}`;
             const input = raw(`./inputs/${loc}.txt`)
-            console.log(`day ${i} input succesfully loaded`, input);
+            console.log(`day ${i} input succesfully loaded`);
             days.set(i, () => day(input));
         } catch (e) {
             console.warn(`day ${i} code or input not found`);

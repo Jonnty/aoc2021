@@ -1,4 +1,4 @@
-import { chunk, zip } from "lodash";
+import { chunk, isPlainObject, zip } from "lodash";
 import { Parts, stringList, without } from "../utils";
 
 interface BingoCard {
@@ -27,7 +27,9 @@ function cardHasWon(card: BingoCard) {
 }
 
 function score(card: BingoCard, drawnNumber: number) {
-    const unMarkedSum = card.rows.map(row => Array.from(row).reduce((a, b) => a + b, 0)).reduce( (a, b) => a + b, 0);
+    console.log(card.rows);
+    const unMarkedSum = card.rows.map(row => Array.from(row).reduce((a, b) => a + b, 0)).reduce((a, b) => a + b, 0);
+    console.log(`${unMarkedSum} + ${drawnNumber}`);
     return unMarkedSum * drawnNumber;
 }
 
@@ -36,9 +38,9 @@ function drawNumber(n: number, cards: BingoCard[], round: number) {
         if (card.score) {
             return card; // already won
         }
-        const newCard =  {
-            rows: card.rows.map( row => without(row, n)),
-            cols: card.cols.map( col => without(col, n)),
+        const newCard = {
+            rows: card.rows.map(row => without(row, n)),
+            cols: card.cols.map(col => without(col, n)),
         }
         if (cardHasWon(newCard)) {
             return {
@@ -51,22 +53,20 @@ function drawNumber(n: number, cards: BingoCard[], round: number) {
     })
 }
 
-    export function day4(input: string): Parts {
-        const lines = stringList(input);
-        const drawnNumbers = lines[0].split(',').map(s => parseInt(s));
-        const grids: number[][][] = chunk(lines.slice(2).filter(s => s).map(s => s.split(/\s+/).map(s => parseInt(s))), 5);
-        const cards = grids.map(parseCard);
+export function day4(input: string): Parts {
+    const lines = stringList(input);
+    const drawnNumbers = lines[0].split(',').map(s => parseInt(s));
+    const grids: number[][][] = chunk(lines.slice(2).filter(s => s).map(s => s.split(/\s+/).map(s => parseInt(s))), 5);
+    const cards = grids.map(parseCard);
+    const completedBoards = drawnNumbers.reduce((oldCards, n, i) => drawNumber(n, oldCards, i), cards);
 
-
-        function part1(): number {
-            return drawnNumbers.reduce((oldCards, n, i) => drawNumber(n, oldCards, i), cards)
-            .filter (card => card.score)
-            .reduce( (a, b) => a.wonInRound! < b.wonInRound! ? a : b ).score!;
-        }
-
-        function part2(): number {
-            return 0;
-        }
-
-        return { part1: part1().toString(), part2: part2().toString() };
+    function part1(): number {
+        return completedBoards.reduce((a, b) => a.wonInRound! < b.wonInRound! ? a : b).score!;
     }
+
+    function part2(): number {
+        return completedBoards.reduce((a, b) => a.wonInRound! > b.wonInRound! ? a : b).score!;
+    }
+
+    return { part1: part1().toString(), part2: part2().toString() };
+}

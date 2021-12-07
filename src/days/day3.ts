@@ -41,7 +41,6 @@ function rating(bitfields: number[][], winningBits: (bfs: number[][]) => number[
     let winners = [...bitfields];
     for (let i = 0; i < bitfields[0].length; i++) {
         winners = winners.filter(bf => filterBitfield(bf, winningBits(winners), i));
-        console.log(winners, i);
         if (winners.length === 1) {
             return winners[0];
         }
@@ -60,9 +59,7 @@ export function day3(input: string): Parts {
     }
 
     function part2(): number {
-        console.log("oxy");
         const oxyRating = rating(bitfields, mostCommonBits);
-        console.log("co2");
         const co2Rating = rating(bitfields, leastCommonBits);
         return binToDec(oxyRating) * binToDec(co2Rating);
     }
