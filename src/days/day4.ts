@@ -27,7 +27,7 @@ function cardHasWon(card: BingoCard) {
 }
 
 function score(card: BingoCard, drawnNumber: number) {
-    const unMarkedSum = card.rows.map(row => Array.from(row).reduce((a, b) => a + b)).reduce( (a, b) => a + b);
+    const unMarkedSum = card.rows.map(row => Array.from(row).reduce((a, b) => a + b, 0)).reduce( (a, b) => a + b, 0);
     return unMarkedSum * drawnNumber;
 }
 
@@ -54,7 +54,7 @@ function drawNumber(n: number, cards: BingoCard[], round: number) {
     export function day4(input: string): Parts {
         const lines = stringList(input);
         const drawnNumbers = lines[0].split(',').map(s => parseInt(s));
-        const grids: number[][][] = chunk(lines.slice(2).filter(s => s).map(s => s.split(/\s+/).map(s => parseInt(s))));
+        const grids: number[][][] = chunk(lines.slice(2).filter(s => s).map(s => s.split(/\s+/).map(s => parseInt(s))), 5);
         const cards = grids.map(parseCard);
 
 
