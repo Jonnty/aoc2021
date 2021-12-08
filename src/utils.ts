@@ -43,6 +43,10 @@ export function numberCommaList(input: string): number[] {
     return input.split(',').map(s => parseInt(s));
 }
 
+export function sum(a: number, b: number): number {
+    return a + b;
+}
+
 export function frequencies<T>(items: T[]): Map<T, number> {
     const freqs: Map<T, number> = new Map();
     for (let i of items) {

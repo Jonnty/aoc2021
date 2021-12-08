@@ -1,5 +1,5 @@
-import { flatten, range, sum } from "lodash";
-import { frequencies, numberCommaList, Parts } from "../utils";
+import { range } from "lodash";
+import { frequencies, numberCommaList, Parts, sum } from "../utils";
 
 function transition(freqs: Map<number, number>): void {
     const birthing = freqs.get(0) ?? 0;
@@ -12,11 +12,11 @@ function lanternfish(freqs: Map<number, number>, generations: number) {
     for (let i = 0; i < generations; i++) {
         transition(freqs);
     }
-    return  Array.from(freqs.values()).reduce((a, b) => a + b);
+    return Array.from(freqs.values()).reduce(sum);
 }
 
 export function day6(input: string): Parts {
-    
+
 
     function part1(): JSX.Element {
         return <p>{lanternfish(frequencies(numberCommaList(input)), 80)}</p>;
