@@ -41,17 +41,18 @@ export function Day({ days }: DayProps) {
     return null;
   }
   const result = day();
-
+  const Part1 = () => typeof result.part1 === "string" ? <p> result.part1</p> : result.part1;
+  const Part2 = () => typeof result.part2 === "string" ? <p> result.part1</p> : result.part2;
   return (
     <div>
-      <p>Part 1: {result.part1 ?? "?"}</p>
-      <p>Part 2: {result.part2 ?? "?"}</p>
+      <div>Part 1: <Part1 /></div>
+      <div>Part 2: <Part2 /></div>
     </div>
   );
 }
 
 function App() {
-  const [days, error, state] = usePromise(importDays, []);
+  const [days, , state] = usePromise(importDays, []);
 
   if (state === 'pending') {
     return <Loader type="Hearts" color="#00BFFF" height={80} width={80} />;

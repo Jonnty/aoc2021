@@ -1,4 +1,4 @@
-import { chunk, isPlainObject, zip } from "lodash";
+import { chunk, zip } from "lodash";
 import { Parts, stringList, without } from "../utils";
 
 interface BingoCard {

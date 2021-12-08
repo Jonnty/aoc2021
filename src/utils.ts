@@ -1,9 +1,18 @@
-import { removeTypeDuplicates } from '@babel/types';
 import raw from 'raw.macro';
 
 export interface Parts {
-    part1: string
-    part2: string
+    part1: JSX.Element | string;
+    part2: JSX.Element | string;
+}
+
+export interface Point {
+    x: number;
+    y: number;
+}
+
+export interface Line {
+    start: Point;
+    end: Point;
 }
 
 export type DayFn = (s: string) => Parts;
@@ -16,6 +25,22 @@ export function numberList(s: string) {
 
 export function stringList(s: string) {
     return s.split("\n").map(s => s.trim());
+}
+
+function parseLine(s: string) {
+    const pairs: number[][] = s.split(' -> ').map(s => s.split(',').map(s => parseInt(s)));
+    return {
+        start: { x: pairs[0][0], y: pairs[0][1] },
+        end: { x: pairs[1][0], y: pairs[1][1] }
+    }
+}
+
+export function lineList(s: string): Line[] {
+    return stringList(s).map(parseLine);
+}
+
+export function numberCommaList(input: string): number[] {
+    return input.split(',').map(s => parseInt(s));
 }
 
 
