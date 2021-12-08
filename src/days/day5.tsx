@@ -1,4 +1,4 @@
-import { lineList, Parts, Line as LineSegment, Point } from "../utils";
+import { lineList, Parts, Line as LineSegment, Point, frequencies } from "../utils";
 import { flatten, range, round } from "lodash";
 import { Stage, Layer, Circle, Line } from 'react-konva';
 
@@ -32,10 +32,7 @@ function pointsBetween({ start, end }: LineSegment): Point[] {
 function intercepts(lines: LineSegment[]): Point[] {
     const points: Point[] = flatten(lines.map(pointsBetween));
     const pointStrings = points.map(({ x, y }) => `${x},${y}`);
-    const freqs: Map<string, number> = new Map();
-    for (let p of pointStrings) {
-        freqs.set(p, (freqs.get(p) ?? 0) + 1);
-    }
+    const freqs = frequencies(pointStrings);
     return Array.from(freqs.entries())
         .filter(([, count]) => count > 1)
         .map(([p,]) => p)

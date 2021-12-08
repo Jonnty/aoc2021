@@ -43,6 +43,13 @@ export function numberCommaList(input: string): number[] {
     return input.split(',').map(s => parseInt(s));
 }
 
+export function frequencies<T>(items: T[]): Map<T, number> {
+    const freqs: Map<T, number> = new Map();
+    for (let i of items) {
+        freqs.set(i, (freqs.get(i) ?? 0) + 1);
+    }
+    return freqs;
+}
 
 export async function importDays(): Promise<DayMap> {
     const days: DayMap = new Map();
