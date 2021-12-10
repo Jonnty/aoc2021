@@ -1,9 +1,14 @@
 import { frequencies, numberCommaList, numberList, Parts, stringList, sum } from "../utils";
 import { flatten, range } from "lodash";
 
+function lettersSets(ss: string[]) {
+    return ss.map(s => new Set(s.split("")));
+}
+
 export function day8(input: string): Parts {
     const lines = stringList(input);
     const outputs = lines.map(s => s.split('|')[1].trim().split(' '))
+    const numbers: Set<string>[][] = lines.map(s => s.split('|')[0].trim().split(' ')).map(lettersSets);
     const allOutputs = flatten(outputs);
 
     //example...
@@ -28,6 +33,7 @@ export function day8(input: string): Parts {
     }
 
     function part2(): JSX.Element {
+     //   numbers.forEach((n, i))
         const total = outputs.map(v => parseInt(v.map(o => mapping[o]).join(""))).reduce(sum);
         return <p>{total}</p>;
     }
