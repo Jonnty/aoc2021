@@ -27,6 +27,34 @@ export function stringList(s: string) {
     return s.split("\n").map(s => s.trim());
 }
 
+export function digitGrid(s: string) {
+    return stringList(s).map(s => s.split("").map(s => parseInt(s)));
+}
+
+export function adjacents<T>(grid: T[][], i: number, j: number): T[] {
+    const raw = [
+        [i + 1, j],
+        [i, j + 1],
+        [i - 1, j],
+        [i, j - 1]
+    ];
+    return raw.map(([i, j]) => grid[i]?.[j]).filter(n => n !== undefined);
+}
+
+export function adjacentPoints<T>(grid: T[][], i: number, j: number): number[][] {
+    const raw = [
+        [i + 1, j],
+        [i, j + 1],
+        [i - 1, j],
+        [i, j - 1]
+    ];
+    return raw.filter(([i, j]) => grid[i]?.[j] !== undefined);
+}
+
+export function mapGrid<T, R>(grid: T[][], fn: (elem: T, i: number, j: number) => R) {
+    return grid.map((row, i) => row.map((elem, j) => fn(elem, i, j)));
+}
+
 function parseLine(s: string) {
     const pairs: number[][] = s.split(' -> ').map(s => s.split(',').map(s => parseInt(s)));
     return {
