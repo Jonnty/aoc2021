@@ -41,6 +41,20 @@ export function adjacents<T>(grid: T[][], i: number, j: number): T[] {
     return raw.map(([i, j]) => grid[i]?.[j]).filter(n => n !== undefined);
 }
 
+export function adjacentsDiags<T>(grid: T[][], i: number, j: number): T[] {
+    const raw = [
+        [i + 1, j],
+        [i, j + 1],
+        [i - 1, j],
+        [i, j - 1],
+        [i + 1, j + 1],
+        [i - 1, j - 1],
+        [i + 1, j - 1],
+        [i - 1, j + 1]
+    ];
+    return raw.map(([i, j]) => grid[i]?.[j]).filter(n => n !== undefined);
+}
+
 export function adjacentPoints<T>(grid: T[][], i: number, j: number): number[][] {
     const raw = [
         [i + 1, j],
@@ -51,8 +65,34 @@ export function adjacentPoints<T>(grid: T[][], i: number, j: number): number[][]
     return raw.filter(([i, j]) => grid[i]?.[j] !== undefined);
 }
 
-export function mapGrid<T, R>(grid: T[][], fn: (elem: T, i: number, j: number) => R) {
-    return grid.map((row, i) => row.map((elem, j) => fn(elem, i, j)));
+export function adjacentsDiagPoints<T>(grid: T[][], i: number, j: number): number[][] {
+    const raw = [
+        [i + 1, j],
+        [i, j + 1],
+        [i - 1, j],
+        [i, j - 1],
+        [i + 1, j + 1],
+        [i - 1, j - 1],
+        [i + 1, j - 1],
+        [i - 1, j + 1]
+    ];
+    return raw.filter(([i, j]) => grid[i]?.[j] !== undefined);
+}
+
+export function sum(a: number, b: number): number {
+    return a + b;
+}
+
+export function gridToString<T>(grid: T[][]) {
+    return grid.map(line => line.join("")).join("\n");
+}
+
+export function mapGrid<T, R>(grid: T[][], fn: (elem: T, i: number, j: number, grid: T[][]) => R) {
+    return grid.map((row, i) => row.map((elem, j) => fn(elem, i, j, grid)));
+}
+
+export function sumGrid(grid: number[][]) {
+    return grid.map((row, i) => row.reduce(sum)).reduce(sum);
 }
 
 function parseLine(s: string) {
@@ -69,10 +109,6 @@ export function lineList(s: string): Line[] {
 
 export function numberCommaList(input: string): number[] {
     return input.split(',').map(s => parseInt(s));
-}
-
-export function sum(a: number, b: number): number {
-    return a + b;
 }
 
 export function frequencies<T>(items: T[]): Map<T, number> {
