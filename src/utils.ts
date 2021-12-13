@@ -31,6 +31,15 @@ export function digitGrid(s: string) {
     return stringList(s).map(s => s.split("").map(s => parseInt(s)));
 }
 
+function parseEdge(s: string): [string, string] {
+    return [s.split("-")[0], s.split("-")[1]];
+}
+
+export function edgeList(s: string): [string, string][] {
+    return stringList(s).map(parseEdge);
+}
+
+
 export function adjacents<T>(grid: T[][], i: number, j: number): T[] {
     const raw = [
         [i + 1, j],
